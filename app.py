@@ -48,13 +48,15 @@ selected_date = st.sidebar.date_input(
 )
 selected_place = st.sidebar.selectbox("관광지 선택", locations_df['관광지'].tolist())
 
+traffic_df['날짜'] = pd.to_datetime(traffic_df['날짜'])
+selected_date = pd.to_datetime(selected_date)
+
 # -----------------------------
 # 4. Filtered Data
 filtered = traffic_df[
     (traffic_df['관광지'] == selected_place) &
-    (traffic_df['날짜'] = pd.to_datetime(traffic_df['날짜']))
+    (traffic_df['날짜'] == selected_date)
 ]
-selected_date = pd.to_datetime(selected_date)
 
 # -----------------------------
 # 5. Line Chart
