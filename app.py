@@ -69,7 +69,7 @@ congestion_today['혼잡도'] = pd.cut(
 )
 
 color_map = {'여유': [0, 255, 0], '보통': [255, 165, 0], '혼잡': [255, 0, 0]}
-congestion_today['color'] = congestion_today['혼잡도'].map(color_map)
+congestion_today['color'] = congestion_today['혼잡도'].astype(str).map(color_map)
 
 layer = pdk.Layer(
     "ScatterplotLayer",
