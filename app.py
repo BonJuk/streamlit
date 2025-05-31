@@ -17,7 +17,9 @@ data = {
 }
 locations_df = pd.DataFrame(data)
 
-dates = pd.date_range("2024-05-01", "2024-05-31", freq='D')
+from datetime import date, timedelta
+today = date.today()
+dates = pd.date_range(today - timedelta(days=30), today, freq='D')
 time_slots = list(range(0, 24))
 
 @st.cache_data
