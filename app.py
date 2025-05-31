@@ -1,4 +1,4 @@
-import streamlit as st
+import streamlit as st 
 import pandas as pd
 import numpy as np
 import pydeck as pdk
@@ -17,7 +17,9 @@ data = {
 }
 locations_df = pd.DataFrame(data)
 
-dates = pd.date_range("2024-01-01", "2024-12-31", freq='D')
+from datetime import date, timedelta
+today = date.today()
+dates = pd.date_range(today - timedelta(days=30), today, freq='D')
 time_slots = list(range(0, 24))
 
 @st.cache_data
@@ -40,16 +42,8 @@ traffic_df = generate_traffic_data()
 # -----------------------------
 # 3. Sidebar Input
 st.sidebar.header("설정")
-selected_date = st.sidebar.date_input(
-    "날짜 선택",
-    value=pd.to_datetime("2024-01-01"),
-    min_value=pd.to_datetime("2024-01-01"),
-    max_value=pd.to_datetime("2024-12-31")
-)
+selected_date = st.sidebar.date_input("날짜 선택", value=pd.to_datetime("2024-05-15"))
 selected_place = st.sidebar.selectbox("관광지 선택", locations_df['관광지'].tolist())
-
-traffic_df['날짜'] = pd.to_datetime(traffic_df['날짜'])
-selected_date = pd.to_datetime(selected_date)
 
 # -----------------------------
 # 4. Filtered Data
