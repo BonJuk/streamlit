@@ -17,9 +17,7 @@ data = {
 }
 locations_df = pd.DataFrame(data)
 
-from datetime import date, timedelta
-today = date.today()
-dates = pd.date_range(today - timedelta(days=30), today, freq='D')
+dates = pd.date_range("2024-01-01", "2024-12-31", freq='D')
 time_slots = list(range(0, 24))
 
 @st.cache_data
@@ -42,12 +40,7 @@ traffic_df = generate_traffic_data()
 # -----------------------------
 # 3. Sidebar Input
 st.sidebar.header("설정")
-selected_date = st.sidebar.date_input(
-    "날짜 선택", 
-    value=today,  # 오늘 날짜로 기본값 변경
-    min_value=today - timedelta(days=30),  # 선택 가능한 최소 날짜
-    max_value=today  # 선택 가능한 최대 날짜
-)
+selected_date = st.sidebar.date_input("날짜 선택", value=pd.to_datetime("2024-05-31"))
 selected_place = st.sidebar.selectbox("관광지 선택", locations_df['관광지'].tolist())
 
 # -----------------------------
